@@ -33,10 +33,9 @@ public:
 	double getSalary();
 	void setSalary(double sal);
 	void printRecord();
+	void destroyCustomerList();
 	EmployeeRecord *m_pLeft;  //new
 	EmployeeRecord *m_pRight; //new 
-	void removeCustomerList(); //new
-	void destroyCustomerList(EmployeeRecord *CustomerList); //new 
 
 	CustomerList *getCustomerList();
 	

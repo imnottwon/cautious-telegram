@@ -11,6 +11,10 @@
 #pragma once
 #include "CustomerList.h"
 #include "EmployeeRecord.h"
+#include <iostream>
+#include <fstream>    
+
+using namespace std;
 
 class EmployeeDatabase 
 {
