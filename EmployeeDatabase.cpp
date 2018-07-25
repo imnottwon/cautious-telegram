@@ -1,4 +1,3 @@
-
 /*******************************************************************
 *   File Name: CustomerList.cpp
 *	Name: Antoine Lynch
@@ -176,7 +175,7 @@ EmployeeRecord * EmployeeDatabase::getEmployee(int id) {
 	temp = m_pRoot;
 	int key = id;
 
-	while ((temp != NULL) && (temp->getID())) {
+	while ((temp != NULL) && (temp->getID() != key)) {
 		if (key < temp->getID()) {
 			temp = temp->m_pLeft;
 		} else {
@@ -205,7 +204,69 @@ void EmployeeDatabase::printEmployeeRecords(EmployeeRecord *rt){
 	}
 }
 
-EmployeeRecord * EmployeeDatabase::removeEmployee(int id) {
-	
+EmployeeRecord * EmployeeDatabase::removeEmployee(int key) {
+	EmployeeRecord * back;
+	EmployeeRecord * temp;
+	EmployeeRecord * delParent;
+	EmployeeRecord * delNode;
+
+	temp = m_pRoot;
+	back = NULL;
+
+	while ((temp != NULL) && (temp->getID() != key)) {
+		back = temp;
+		if (key < temp->getID()) {
+			temp = temp->m_pLeft;
+		}
+		else {
+			temp = temp->m_pRight;
+		}
+	}
+
+	if (temp == NULL) {
+		return NULL;
+	}
+	else {
+		delNode = temp;
+		delParent = back;
+	}
+
+	if (delNode->m_pRight == NULL) {
+		if (delParent == NULL) {
+			m_pRoot = delNode->m_pLeft;
+			delNode->m_pLeft = NULL;
+			return delNode;
+		}
+		else {
+			if (delParent->m_pLeft == delNode) {
+				delParent->m_pLeft = delNode->m_pLeft;
+			}
+			else {
+				delParent->m_pRight = delNode->m_pLeft;
+			}
+			delNode->m_pLeft = NULL;
+			return delNode;
+		}
+	}
+	else {
+		if (delNode->m_pLeft == NULL) {
+			if (delParent == NULL) {
+				m_pRoot = delNode->m_pRight;
+				delNode->m_pRight = NULL;
+				return delNode;
+			}
+			else {
+				if (delParent->m_pLeft == delNode) {
+					delParent->m_pLeft = delNode->m_pRight;
+				}
+				else {
+					delParent->m_pRight = delNode->m_pRight;
+				}
+				delNode->m_pRight = NULL;
+				return delNode;
+			}
+		}
+	}
 	return NULL;
 }
+
