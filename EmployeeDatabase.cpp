@@ -283,7 +283,12 @@ EmployeeRecord * EmployeeDatabase::removeEmployee(int key) {
 				return delNode;
 			}
 		}
-	}
+		else {
+			//DELETING WITH TWO CHILDREN
+			//MODIFY DupNode CODE HERE
+		}
+	} 
+
 	return NULL;
 }
 
