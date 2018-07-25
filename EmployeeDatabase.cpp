@@ -15,7 +15,7 @@
 5. Call removeCustomerList() on the EmployeeRecord that you copied FROM. It will set its' m_pCustomerList pointer to null, but will not delete the CustomerList object. This will leave that instance of CustomerList with the node you are overwriting.
 6. Remove from the tree the node you just copied FROM and delete it. Since it's pointer to CustomerList is now NULL it will not try to delete its' CustomerList.
 7. Return the new EmployeeRecord that is now a duplicate of the one "removed" from the tree. 
-/*******************************************************************
+*******************************************************************/
 
 
 #include "CustomerList.h"
