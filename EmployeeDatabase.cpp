@@ -16,17 +16,17 @@
 
 using namespace std;
 
-//default contructor
 EmployeeDatabase::EmployeeDatabase() {
+
 }
 
 //default destructor
-EmployeeDatabase::EmployeeDatabase() {
-	EmployeeDatabase::DestroyTree(EmployeeRecord *m_pRoot);
+EmployeeDatabase::~EmployeeDatabase() {
+	DestroyTree(m_pRoot);
 }
 
 //DestroyTree Function
-EmployeeDatabase::DestroyTree(EmployeeRecord *rt) {
+void EmployeeDatabase::DestroyTree(EmployeeRecord *rt) {
 	
 	if (rt != NULL)
 	{
@@ -144,19 +144,29 @@ bool EmployeeDatabase::getNextLine(char *line, int lineLen)
     return false;
 }
 
-bool addEmployee(EmployeeRecord *e) {
-	EmployeeRecord *cur;
+bool EmployeeDatabase::addEmployee(EmployeeRecord *e) {
+	EmployeeRecord *temp;
 	EmployeeRecord *back;
-	cur = m_pRoot;  //fix
+	temp = m_pRoot;  //fix
+	back = NULL;
 
-	while(cur != NULL) {
-		back = cur;
-		if(e->key < back->key)
+	while (temp != NULL) {
+		back = temp;
+		if (e->getID() < back->getID())
+			temp = temp->m_pLeft;
+		else
+			temp = temp->m_pRight;
+	}
+
+	if (back == NULL) {
+		m_pRoot = e;
+	} else {
+		if (e->getID() < back->getID()) {
 			back->m_pLeft = e;
-		else 
-			back->m_pRight
-		back = cur->m_pLeft;
+		} else {
+			back->m_pRight = e;
+		}
+	}
 
-
-
-
+	return true;
+}

@@ -96,7 +96,7 @@ void EmployeeRecord::printRecord() {
 	void EmployeeRecord::removeCustomerList() { //new
 		
 		if(m_pCustomerList != NULL) {
-		m_pCustomerList = NULL;
+			m_pCustomerList = NULL;
 		}
 	}
 
@@ -105,8 +105,8 @@ void EmployeeRecord::printRecord() {
 	function in the EmployeeDatabase class. See details of how this function is used in the hints section below. 
 	*/
 	
-	void EmployeeRecord::destroyCustomerList(EmployeeRecord *CustomerList) { //new 
-		delete CustomerList;
+	void EmployeeRecord::destroyCustomerList() { //new 
+		delete m_pCustomerList;
 	}
 
 	/*2.2.3 The public function void destroyCustomerList() will be added to the EmployeeRecord class. 

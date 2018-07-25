@@ -5,10 +5,8 @@
 *
 *   This program is entirely my own work
 *******************************************************************/
-#include <cstdlib>
-#include "EmployeeRecord.h"
-#include "Store.h"
-#include "CustomerList.h"
+#include "EmployeeDatabase.h"
+using namespace std;
 
 //forward declarations
 char * getRandomAddress();
@@ -21,70 +19,66 @@ Store * generateStore();
 
 void testGenerateStore();
 
-int main(int argc, char *argv[]) {
-	char firstName[32] = "M.\0";
-	char lastName[32] = "Manson\0";
-	Store * t;
-	Store * store = generateStore();
-	store->setStoreID(101); //out of bounds of random geneator;
-	EmployeeRecord *record = new EmployeeRecord();
-	record->setID(2222);
-	record->setName(firstName, lastName);
-	record->setDept(666);
-	record->setSalary(1111.00);
-	for(int i = 0; i < 5; i++) {
-		record->getCustomerList()->addStore(generateStore());
-	}
-	record->printRecord();
-	cout << endl;
-	cout << endl;
-	cout << "============GetStoreTest==================" << endl;
-	t = record->getCustomerList()->getStore(101);
-	cout << "store not in list" << endl;
-	if (t == NULL) {
-		cout << "correct" << endl;
-	}
-	else {
-		cout << "incorrect" << endl;
-	}
+int main(int argc, char * argv[])
+{
 
-	record->getCustomerList()->addStore(store);
-	t = record->getCustomerList()->getStore(101);
-	cout << "store in list" << endl;
-	if (t == NULL) {
-		cout << "incorrect" << endl;
-	}
-	else {
-		cout << "correct" << endl;
-	}
+	//Testing the buildDatabase, addEmployee,
+	//and printEmployeeRecords functions
 
-	cout << endl;
-	cout << endl;
-	cout << "============RemoveStoreTest==================" << endl;
-	record->getCustomerList()->removeStore(101);
-	cout << "store delete with valid store" << endl;
-	if (t == NULL) {
-		cout << "incorrect" << endl;
-	}
-	else {
-		if (t->getStoreID() == 101) {
-			cout << "correct" << endl;
-		}
-		else {
-			cout << "incorrect" << endl;
-		}
-	}
+	EmployeeDatabase *db = new EmployeeDatabase();
+	db->buildDatabase("Prog3Data.txt");
+	db->printEmployeeRecords();
 
-	record->getCustomerList()->removeStore(101);
-	cout << "store delete with invalid store" << endl;
-	if (t == NULL) {
-		cout << "correct" << endl;
-	}
-	else {
-		cout << "incorrect" << endl;
-	}
+	//Testing the getEmployee function
 
+	EmployeeRecord *e;
+	e = db->getEmployee(5678);
+	if ((e != NULL) && (e->getID() == 5678))
+		cout << "test for getEmployee successful" << endl;
 
-	delete record;
+	//Testing removeEmployee
+	EmployeeRecord *e2;
+
+	e = db->removeEmployee(9999);
+	if (e == NULL)
+		cout << "1. Test for nonexistent node success" << endl;
+	e = db->removeEmployee(8765);
+	if (e->getID() == 8765)
+		cout << "2. Test for leaf node removal successful" << endl;
+	e = db->removeEmployee(7890);
+	if (e->getID() == 7890)
+		cout << "3. Test for non root node with 2 children successful" << endl;
+	db->removeEmployee(4567);
+	e = db->removeEmployee(1234);
+	if (e->getID() == 1234)
+		cout << "4. Test for non root right child successful" << endl;
+	e = db->removeEmployee(3456);
+	if (e->getID() == 3456)
+		cout << "5. Test for non root left child successful" << endl;
+	//db->printEmployeeRecords();
+	e = db->removeEmployee(5678);
+	if (e->getID() == 5678)
+		cout << "6. Test for root node with 2 children successful" << endl;
+	e2 = db->removeEmployee(2345);
+	if (e2->getID() == 2345)
+		cout << "7. Test for root node with right child successful" << endl;
+	db->removeEmployee(7654);
+	db->removeEmployee(9876);
+	db->addEmployee(e2);
+	e = db->removeEmployee(6789);
+	if (e->getID() == 6789)
+		cout << "8. Test for root node with left child successful" << endl;
+	e = db->removeEmployee(2345);
+	if (e->getID() == 2345)
+		cout << "9. Test for root, leaf, last node in tree successful" << endl;
+
+	//Testing the destructor and destroyTree functions
+
+	EmployeeDatabase *db2 = new EmployeeDatabase();
+	db2->buildDatabase("Prog3Data.txt");
+	db2->printEmployeeRecords();
+	delete db2;
+
 	return 0;
+
 }
