@@ -1,7 +1,7 @@
 /*******************************************************************
 *   File Name: Main.cpp
 *	Name: Antoine Lynch
-*   Programming Assignment 2
+*   Programming Assignment 3
 *
 *   This program is entirely my own work
 *******************************************************************/

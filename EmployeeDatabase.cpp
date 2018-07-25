@@ -171,11 +171,30 @@ bool EmployeeDatabase::addEmployee(EmployeeRecord *e) {
 	return true;
 }
 
-bool EmployeeDatabase::addEmployee(EmployeeRecord *e) {
+EmployeeRecord * EmployeeDatabase::getEmployee(int id) {
+	EmployeeRecord * temp;
+	temp = m_pRoot;
+	int key = id;
 
+	while ((temp != NULL) && (temp->getID())) {
+		if (key < temp->getID()) {
+			temp = temp->m_pLeft;
+		} else {
+			temp = temp->m_pRight;
+		}
+
+		if (temp == NULL) {
+			return NULL;
+		}
+		else {
+			return temp;
+		}
+	}
+	return NULL;
 }
-
-
+void EmployeeDatabase::printEmployeeRecords(){
+	printEmployeeRecords (m_pRoot);
+}
 
 void EmployeeDatabase::printEmployeeRecords(EmployeeRecord *rt){
 
@@ -183,4 +202,10 @@ void EmployeeDatabase::printEmployeeRecords(EmployeeRecord *rt){
 		printEmployeeRecords(rt->m_pLeft);
 		cout<<"     "<<rt<<"     "<<endl;
 		printEmployeeRecords(rt->m_pRight);
+	}
+}
+
+EmployeeRecord * EmployeeDatabase::removeEmployee(int id) {
+	
+	return NULL;
 }
