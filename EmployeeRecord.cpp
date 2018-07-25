@@ -35,7 +35,7 @@ EmployeeRecord::EmployeeRecord(int ID, char* fName, char* lName, int deptId, dou
 
 EmployeeRecord::~EmployeeRecord() {
 	if (m_pCustomerList != NULL) {
-	delete m_pCustomerList;
+		delete m_pCustomerList;
 	}
 	else return;
 }

@@ -1,4 +1,3 @@
-
 /*******************************************************************
 *   File Name: CustomerList.cpp
 *	Name: Antoine Lynch
@@ -36,7 +35,7 @@
 using namespace std;
 
 EmployeeDatabase::EmployeeDatabase() {
-
+	m_pRoot = NULL;
 }
 
 //default destructor
@@ -169,9 +168,13 @@ bool EmployeeDatabase::addEmployee(EmployeeRecord *e) {
 	temp = m_pRoot;  //fix
 	back = NULL;
 
+	if (m_pRoot == NULL) {
+		m_pRoot = e;
+	}
+
 	while (temp != NULL) {
 		back = temp;
-		if (e->getID() < back->getID())
+		if (e->getID() < temp->getID())
 			temp = temp->m_pLeft;
 		else
 			temp = temp->m_pRight;
@@ -195,21 +198,20 @@ EmployeeRecord * EmployeeDatabase::getEmployee(int id) {
 	temp = m_pRoot;
 	int key = id;
 
-	while ((temp != NULL) && (temp->getID())) {
+	while ((temp != NULL) && (temp->getID() != key)) {
 		if (key < temp->getID()) {
 			temp = temp->m_pLeft;
 		} else {
 			temp = temp->m_pRight;
 		}
-
-		if (temp == NULL) {
-			return NULL;
-		}
-		else {
-			return temp;
-		}
 	}
-	return NULL;
+
+	if (temp == NULL) {
+		return NULL;
+	}
+	else {
+		return temp;
+	}
 }
 
 void EmployeeDatabase::printEmployeeRecords(){
@@ -220,12 +222,74 @@ void EmployeeDatabase::printEmployeeRecords(EmployeeRecord *rt){
 
 	if(rt != NULL) {
 		printEmployeeRecords(rt->m_pLeft);
-		cout<<"     "<<rt<<"     "<<endl;
+		rt->printRecord();
 		printEmployeeRecords(rt->m_pRight);
 	}
 }
 
-EmployeeRecord * EmployeeDatabase::removeEmployee(int id) {
-	
+EmployeeRecord * EmployeeDatabase::removeEmployee(int key) {
+	EmployeeRecord * back;
+	EmployeeRecord * temp;
+	EmployeeRecord * delParent;
+	EmployeeRecord * delNode;
+
+	temp = m_pRoot;
+	back = NULL;
+
+	while ((temp != NULL) && (temp->getID() != key)) {
+		back = temp;
+		if (key < temp->getID()) {
+			temp = temp->m_pLeft;
+		}
+		else {
+			temp = temp->m_pRight;
+		}
+	}
+
+	if (temp == NULL) {
+		return NULL;
+	}
+	else {
+		delNode = temp;
+		delParent = back;
+	}
+
+	if (delNode->m_pRight == NULL) {
+		if (delParent == NULL) {
+			m_pRoot = delNode->m_pLeft;
+			delNode->m_pLeft = NULL;
+			return delNode;
+		}
+		else {
+			if (delParent->m_pLeft == delNode) {
+				delParent->m_pLeft = delNode->m_pLeft;
+			}
+			else {
+				delParent->m_pRight = delNode->m_pLeft;
+			}
+			delNode->m_pLeft = NULL;
+			return delNode;
+		}
+	}
+	else {
+		if (delNode->m_pLeft == NULL) {
+			if (delParent == NULL) {
+				m_pRoot = delNode->m_pRight;
+				delNode->m_pRight = NULL;
+				return delNode;
+			}
+			else {
+				if (delParent->m_pLeft == delNode) {
+					delParent->m_pLeft = delNode->m_pRight;
+				}
+				else {
+					delParent->m_pRight = delNode->m_pRight;
+				}
+				delNode->m_pRight = NULL;
+				return delNode;
+			}
+		}
+	}
 	return NULL;
 }
+
