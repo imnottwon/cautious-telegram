@@ -172,5 +172,24 @@ bool EmployeeDatabase::addEmployee(EmployeeRecord *e) {
 }
 
 bool EmployeeDatabase::addEmployee(EmployeeRecord *e) {
+	EmployeeRecord * temp;
+	temp = m_pRoot;
+	int key = e->getID();
 
+	while ((temp != NULL) && (temp->getID())) {
+		if (key < temp->getID()) {
+			temp = temp->m_pLeft;
+		} else {
+			temp = temp->m_pRight;
+		}
+
+		if (temp == NULL) {
+			return NULL;
+		}
+		else {
+			return temp;
+		}
+	}
+	
+	return NULL;
 }
