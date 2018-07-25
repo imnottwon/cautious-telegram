@@ -5,6 +5,19 @@
 *
 *   This program is entirely my own work
 *******************************************************************/
+
+
+/*******************************************************************
+1. Create a new EmployeeRecord. This will also create its' own instance of CustomerList which is not needed. So after creating it call destroyCustomerList on this new instance of EmployeeRecord.
+2. Copy all data from the node to be deleted into this new EmployeeRecord. This will also copy the pointer to the CustomerList object. Just briefly you will have two instances of EmployeeRecord both with pointers to the same instance of CustomerList.
+3. Search the left sub-tree of the node to be "removed" to find the node with the largest key. This one will be used to overwrite the node to be "removed." 
+4. Copy all data from the node in the left sub-tree with the largest key into the node to be "removed". This will also copy the pointer to its' CustomerList leaving both nodes with a pointer to the same CustomerList object.
+5. Call removeCustomerList() on the EmployeeRecord that you copied FROM. It will set its' m_pCustomerList pointer to null, but will not delete the CustomerList object. This will leave that instance of CustomerList with the node you are overwriting.
+6. Remove from the tree the node you just copied FROM and delete it. Since it's pointer to CustomerList is now NULL it will not try to delete its' CustomerList.
+7. Return the new EmployeeRecord that is now a duplicate of the one "removed" from the tree. 
+/*******************************************************************
+
+
 #include "CustomerList.h"
 #include "Store.h"
 #include "EmployeeDatabase.h"
@@ -30,8 +43,8 @@ void EmployeeDatabase::DestroyTree(EmployeeRecord *rt) {
 	if (rt != NULL)
 	{
 		DestroyTree(rt->m_pLeft);
+		delete rt;
 		DestroyTree(rt->m_pRight);
-		free (rt);
 	}
 }
 
@@ -191,6 +204,7 @@ EmployeeRecord * EmployeeDatabase::getEmployee(int id) {
 	}
 	return NULL;
 }
+
 void EmployeeDatabase::printEmployeeRecords(){
 	printEmployeeRecords (m_pRoot);
 }
