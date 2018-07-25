@@ -170,3 +170,7 @@ bool EmployeeDatabase::addEmployee(EmployeeRecord *e) {
 
 	return true;
 }
+
+bool EmployeeDatabase::addEmployee(EmployeeRecord *e) {
+
+}
