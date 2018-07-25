@@ -29,7 +29,7 @@
 using namespace std;
 
 EmployeeDatabase::EmployeeDatabase() {
-
+	m_pRoot = NULL;
 }
 
 //default destructor
@@ -162,9 +162,13 @@ bool EmployeeDatabase::addEmployee(EmployeeRecord *e) {
 	temp = m_pRoot;  //fix
 	back = NULL;
 
+	if (m_pRoot == NULL) {
+		m_pRoot = e;
+	}
+
 	while (temp != NULL) {
 		back = temp;
-		if (e->getID() < back->getID())
+		if (e->getID() < temp->getID())
 			temp = temp->m_pLeft;
 		else
 			temp = temp->m_pRight;
@@ -194,15 +198,14 @@ EmployeeRecord * EmployeeDatabase::getEmployee(int id) {
 		} else {
 			temp = temp->m_pRight;
 		}
-
-		if (temp == NULL) {
-			return NULL;
-		}
-		else {
-			return temp;
-		}
 	}
-	return NULL;
+
+	if (temp == NULL) {
+		return NULL;
+	}
+	else {
+		return temp;
+	}
 }
 
 void EmployeeDatabase::printEmployeeRecords(){
@@ -213,7 +216,7 @@ void EmployeeDatabase::printEmployeeRecords(EmployeeRecord *rt){
 
 	if(rt != NULL) {
 		printEmployeeRecords(rt->m_pLeft);
-		cout<<"     "<<rt<<"     "<<endl;
+		rt->printRecord();
 		printEmployeeRecords(rt->m_pRight);
 	}
 }

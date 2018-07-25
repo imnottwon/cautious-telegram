@@ -36,6 +36,12 @@ int main(int argc, char * argv[])
 	if ((e != NULL) && (e->getID() == 5678))
 		cout << "test for getEmployee successful" << endl;
 
+	EmployeeRecord *eT;
+	eT = db->getEmployee(8765);
+	if ((eT != NULL) && (eT->getID() == 8765))
+		cout << "test for getEmployee successful" << endl;
+
+
 	//Testing removeEmployee
 	EmployeeRecord *e2;
 
@@ -45,9 +51,11 @@ int main(int argc, char * argv[])
 	e = db->removeEmployee(8765);
 	if (e->getID() == 8765)
 		cout << "2. Test for leaf node removal successful" << endl;
+	/*
 	e = db->removeEmployee(7890);
 	if (e->getID() == 7890)
 		cout << "3. Test for non root node with 2 children successful" << endl;
+	*/
 	db->removeEmployee(4567);
 	e = db->removeEmployee(1234);
 	if (e->getID() == 1234)
@@ -55,11 +63,14 @@ int main(int argc, char * argv[])
 	e = db->removeEmployee(3456);
 	if (e->getID() == 3456)
 		cout << "5. Test for non root left child successful" << endl;
-	//db->printEmployeeRecords();
+	db->printEmployeeRecords();
+
+	/*
 	e = db->removeEmployee(5678);
 	if (e->getID() == 5678)
 		cout << "6. Test for root node with 2 children successful" << endl;
 	e2 = db->removeEmployee(2345);
+	*/
 	if (e2->getID() == 2345)
 		cout << "7. Test for root node with right child successful" << endl;
 	db->removeEmployee(7654);
