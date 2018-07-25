@@ -174,3 +174,13 @@ bool EmployeeDatabase::addEmployee(EmployeeRecord *e) {
 bool EmployeeDatabase::addEmployee(EmployeeRecord *e) {
 
 }
+
+
+
+void EmployeeDatabase::printEmployeeRecords(EmployeeRecord *rt){
+
+	if(rt != NULL) {
+		printEmployeeRecords(rt->m_pLeft);
+		cout<<"     "<<rt<<"     "<<endl;
+		printEmployeeRecords(rt->m_pRight);
+}
