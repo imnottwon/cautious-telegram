@@ -1,34 +1,8 @@
 
-Click here to enable desktop notifications for UAH Mail.   Learn more  Hide
-
-Move to Inbox More 
-1 of 88
- 
-pg2
-
-Antoine Lynch <all0029@uah.edu>
-Attachments10:13 AM (13 minutes ago)
-to Antoine 
-
-
--- 
-Respectfully,
-
-Antoine L. Lynch
-9 Attachments
-	
-Click here to Reply or Forward
-Using 0.63 GB
-Program Policies
-Powered by Google
-Last account activity: 0 minutes ago
-Details
-
-
 /*******************************************************************
 *   File Name: CustomerList.cpp
 *	Name: Antoine Lynch
-*   Programming Assignment 2
+*   Programming Assignment 3
 *
 *   This program is entirely my own work
 *******************************************************************/
@@ -130,3 +104,6 @@ void CustomerList::printStoresInfo() {
 
 	return;
 }
+
+
+

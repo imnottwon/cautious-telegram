@@ -1,7 +1,7 @@
 /*******************************************************************
 *   File Name: EmployeeRecord.cpp
 *	Name: Antoine Lynch
-*   Programming Assignment 2
+*   Programming Assignment 3
 *
 *   This program is entirely my own work
 *******************************************************************/
@@ -19,6 +19,8 @@ EmployeeRecord::EmployeeRecord() {
 	m_iDeptID = 0;
 	m_dSalary = 0.0;
 	m_pCustomerList = new CustomerList();
+	m_pLeft = NULL;
+	m_pRight = NULL;
 }
 
 EmployeeRecord::EmployeeRecord(int ID, char* fName, char* lName, int deptId, double sal) {
@@ -32,7 +34,10 @@ EmployeeRecord::EmployeeRecord(int ID, char* fName, char* lName, int deptId, dou
 }
 
 EmployeeRecord::~EmployeeRecord() {
+	if (m_pCustomerList != NULL) {
 	delete m_pCustomerList;
+	}
+	else return;
 }
 
 int EmployeeRecord::getID() {
@@ -87,3 +92,26 @@ void EmployeeRecord::printRecord() {
 	cout << "================================" << endl;
 
 }
+
+	void EmployeeRecord::removeCustomerList() { //new
+		
+		if(m_pCustomerList != NULL) {
+		m_pCustomerList = NULL;
+		}
+	}
+
+	/*	2.2.2 The public function void removeCustomerList() will be added to the EmployeeRecord class. 
+	This function sets the pointer to a CustomerList object to NULL. This function is used by the removeEmployee() 
+	function in the EmployeeDatabase class. See details of how this function is used in the hints section below. 
+	*/
+	
+	void EmployeeRecord::destroyCustomerList(EmployeeRecord *CustomerList) { //new 
+		delete CustomerList;
+	}
+
+	/*2.2.3 The public function void destroyCustomerList() will be added to the EmployeeRecord class. 
+	This function deletes the CustomerList object and sets the pointer to a CustomerList object to NULL.
+	It is used by the removeEmployee() function in the EmployeeDatabase class. See details of how this function 
+	is used in the hints section below. NOTE: You will have to modify the destructor of EmployeeRecord to check 
+	to see if m_pCustomerList is not NULL before calling delete m_pCustomerList. 
+	*/

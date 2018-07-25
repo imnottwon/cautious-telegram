@@ -1,12 +1,13 @@
 /*******************************************************************
 *   File Name: EmployeeRecord.cpp
 *	Name: Antoine Lynch
-*   Programming Assignment 2 
+*   Programming Assignment 3
 *   
 *   This program is entirely my own work
 *******************************************************************/
 #pragma once
 #include "CustomerList.h"
+
 
 class EmployeeRecord 
 {
@@ -16,7 +17,7 @@ private:
 	char m_sFirstName[32];
 	int m_iDeptID;
 	double m_dSalary;
-	CustomerList * m_pCustomerList;
+	CustomerList * m_pCustomerList; //new
 
 public:
 	EmployeeRecord();
@@ -26,11 +27,16 @@ public:
 	void setID(int ID);
 	void getName(char *fname, char *lname);
 	void setName(char *fname, char *lname);
+	void removeCustomerList();
 	int getDept();
 	void setDept(int d);
 	double getSalary();
 	void setSalary(double sal);
 	void printRecord();
+	EmployeeRecord *m_pLeft;  //new
+	EmployeeRecord *m_pRight; //new 
+	void removeCustomerList(); //new
+	void destroyCustomerList(EmployeeRecord *CustomerList); //new 
 
 	CustomerList *getCustomerList();
 	

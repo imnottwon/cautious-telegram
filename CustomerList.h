@@ -1,7 +1,7 @@
 /*******************************************************************
 *   File Name: CustomerList.h
 *	Name: Antoine Lynch
-*   Programming Assignment 2
+*   Programming Assignment 3
 *
 *   This program is entirely my own work
 *******************************************************************/
@@ -20,4 +20,5 @@ public:
 	Store *getStore(int ID);
 	bool updateStore(int ID, char *name, char *addr, char *city, char *st, char *zip);
 	void printStoresInfo();
+	void destroyCustomerList(); //new
 };

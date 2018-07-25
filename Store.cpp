@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------
 // Store.cpp
-// Class implementation of a Store object for use in programming assignment 2.
+// Class implementation of a Store object for use in programming assignment 3
 // Author: Dr. Rick Coleman
 //--------------------------------------------------------------------------
 #include "Store.h"
