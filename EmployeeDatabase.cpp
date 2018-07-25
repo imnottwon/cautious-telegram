@@ -171,10 +171,10 @@ bool EmployeeDatabase::addEmployee(EmployeeRecord *e) {
 	return true;
 }
 
-bool EmployeeDatabase::addEmployee(EmployeeRecord *e) {
+EmployeeRecord * EmployeeDatabase::getEmployee(int id) {
 	EmployeeRecord * temp;
 	temp = m_pRoot;
-	int key = e->getID();
+	int key = id;
 
 	while ((temp != NULL) && (temp->getID())) {
 		if (key < temp->getID()) {
@@ -190,6 +190,9 @@ bool EmployeeDatabase::addEmployee(EmployeeRecord *e) {
 			return temp;
 		}
 	}
-	
 	return NULL;
+}
+
+EmployeeRecord * EmployeeDatabase::removeEmployee(int id) {
+	
 }
