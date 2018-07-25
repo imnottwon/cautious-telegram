@@ -289,12 +289,62 @@ EmployeeRecord * EmployeeDatabase::removeEmployee(int key) {
 				return delNode;
 			}
 		}
-		else {
-			//DELETING WITH TWO CHILDREN
-			//MODIFY DupNode CODE HERE
-		}
-	} 
+		else // DELETING NODE WITH 2 CHILDREN
+        {
+            EmployeeRecord *del = new EmployeeRecord();
+//          
+			del = delNode;
+//			del -> destroyCustomerList();
+//          EmployeeRecord *back = NULL;
+//          EmployeeRecord *m_pLeft = NULL;
+//          EmployeeRecord *m_pRight = NULL;
+//          EmployeeRecord *temp = NULL;
+           	cout<<"Remove Employee Function for 2 children reached\n";
+            // Copy the replacement values into the node to be deleted
+			temp->m_pRight = delNode->m_pRight;
+			delNode->m_pRight = NULL;	
+			if (delParent == NULL)
+				m_pRoot = temp;
+			else{
+				if (delParent->m_pLeft == delNode)
+					delParent->m_pLeft = temp;
+				else
+					delParent->m_pRight = temp;
+			}
+			if (back != delNode) {
+				back->m_pRight = temp->m_pLeft;
+				temp->m_pLeft = delNode->m_pLeft;
+			}
+			del->removeCustomerList();
+			delNode->m_pLeft = NULL;
+			delete delNode;
 
+			return del;
+			/*
+			//m_pLeft = delNode-> m_pLeft;
+            //m_pRight= delNode-> m_pRight;
+            //*delNode = *temp;
+			del->removeCustomerList;
+			del->m_pLeft = NULL;
+            del->m_pRight =NULL;
+            temp = delNode->m_pLeft;
+            back = delNode;
+            while(temp->m_pRight != NULL)
+            {
+                back = temp;
+                temp = temp->m_pRight;
+            }
+            *delNode = *temp;
+            delNode -> m_pLeft = temp->m_pLeft;
+            delNode -> m_pRight = temp->m_pRight;
+           
+            delete temp;
+            return del;
+			*/
+           
+        }
+    }
 	return NULL;
 }
 
+	

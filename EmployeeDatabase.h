@@ -33,6 +33,7 @@ public:
 	void printEmployeeRecords();
 	bool buildDatabase(char *dataFile);  //included from instructor
 	bool getNextLine(char *line, int LineLen); //included from instructor
+//	void printEmployeeRecords(EmployeeRecord *rt);
 };
 
 /*******************************************************************
