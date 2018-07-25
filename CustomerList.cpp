@@ -5,6 +5,7 @@
 *   Programming Assignment 3
 *
 *   This program is entirely my own work
+* testing push access
 *******************************************************************/
 #include "CustomerList.h"
 #include "Store.h"
