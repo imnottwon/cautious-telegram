@@ -42,7 +42,8 @@ EmployeeDatabase::EmployeeDatabase() {
 //default destructor
 EmployeeDatabase::~EmployeeDatabase() {
 	DestroyTree(m_pRoot);
-	m_pRoot = NULL;
+    m_pRoot = NULL;
+	cout<<"Tree Destroyed"<<endl;
 }
 
 //DestroyTree Function
@@ -54,6 +55,7 @@ void EmployeeDatabase::DestroyTree(EmployeeRecord *rt) {
 		delete rt;
 		DestroyTree(rt->m_pRight);
 	}
+
 }
 
 
@@ -300,7 +302,7 @@ EmployeeRecord * EmployeeDatabase::removeEmployee(int key) {
 			char fName[32];
 			char lName[32];
 			temp->getName(fName, lName);
-			EmployeeRecord * t = new EmployeeRecord(temp->getID(), fName, lName,temp->getDept(), temp->getSalary());
+			EmployeeRecord * t = new EmployeeRecord(temp->getID(), fName, lName, temp->getDept(), temp->getSalary());
 			parent_replacement = temp;
 			replacement = temp->m_pLeft;
 			int is_left = 1; /* Replacement is left child of parent */
