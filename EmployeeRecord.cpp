@@ -92,7 +92,6 @@ void EmployeeRecord::printRecord() {
 	cout << "================================" << endl;
 
 }
-
 	void EmployeeRecord::removeCustomerList() { //new
 		
 		if(m_pCustomerList != NULL) {

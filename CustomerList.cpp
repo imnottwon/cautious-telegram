@@ -1,4 +1,3 @@
-
 /*******************************************************************
 *   File Name: CustomerList.cpp
 *	Name: Antoine Lynch
@@ -105,6 +104,5 @@ void CustomerList::printStoresInfo() {
 
 	return;
 }
-
 
 

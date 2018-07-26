@@ -41,6 +41,7 @@ EmployeeDatabase::EmployeeDatabase() {
 //default destructor
 EmployeeDatabase::~EmployeeDatabase() {
 	DestroyTree(m_pRoot);
+    m_pRoot = NULL;
 }
 
 //DestroyTree Function
@@ -165,7 +166,8 @@ bool EmployeeDatabase::getNextLine(char *line, int lineLen)
 bool EmployeeDatabase::addEmployee(EmployeeRecord *e) {
 	EmployeeRecord *temp;
 	EmployeeRecord *back;
-	temp = m_pRoot;  //fix
+	
+    temp = m_pRoot;  //fix
 	back = NULL;
 
 	if (m_pRoot == NULL) {
@@ -182,7 +184,8 @@ bool EmployeeDatabase::addEmployee(EmployeeRecord *e) {
 
 	if (back == NULL) {
 		m_pRoot = e;
-	} else {
+	}
+    else {
 		if (e->getID() < back->getID()) {
 			back->m_pLeft = e;
 		} else {
@@ -235,7 +238,7 @@ EmployeeRecord * EmployeeDatabase::removeEmployee(int key) {
 
 	temp = m_pRoot;
 	back = NULL;
-
+    cout<<"Remove Employee Function Reached"<<endl;
 	while ((temp != NULL) && (temp->getID() != key)) {
 		back = temp;
 		if (key < temp->getID()) {
@@ -291,7 +294,8 @@ EmployeeRecord * EmployeeDatabase::removeEmployee(int key) {
 		}
 		else // DELETING NODE WITH 2 CHILDREN
         {
-            EmployeeRecord *del = new EmployeeRecord();
+            /*
+			EmployeeRecord *del = new EmployeeRecord();
 //          
 			del = delNode;
 //			del -> destroyCustomerList();
@@ -299,12 +303,16 @@ EmployeeRecord * EmployeeDatabase::removeEmployee(int key) {
 //          EmployeeRecord *m_pLeft = NULL;
 //          EmployeeRecord *m_pRight = NULL;
 //          EmployeeRecord *temp = NULL;
-           	cout<<"Remove Employee Function for 2 children reached\n";
-            // Copy the replacement values into the node to be deleted
+           
+			cout<<"Remove Employee Function for 2 children reached\n";
+            
+			// Copy the replacement values into the node to be deleted
 			temp->m_pRight = delNode->m_pRight;
-			delNode->m_pRight = NULL;	
-			if (delParent == NULL)
+			if (delParent == NULL) {
 				m_pRoot = temp;
+            	back = temp;
+				temp = m_pRoot;
+            }
 			else{
 				if (delParent->m_pLeft == delNode)
 					delParent->m_pLeft = temp;
@@ -315,15 +323,16 @@ EmployeeRecord * EmployeeDatabase::removeEmployee(int key) {
 				back->m_pRight = temp->m_pLeft;
 				temp->m_pLeft = delNode->m_pLeft;
 			}
+			
 			del->removeCustomerList();
 			delNode->m_pLeft = NULL;
 			delete delNode;
 
-			return del;
+			return temp;
 			/*
 			//m_pLeft = delNode-> m_pLeft;
             //m_pRight= delNode-> m_pRight;
-            //*delNode = *temp;
+            //delNode = *temp;
 			del->removeCustomerList;
 			del->m_pLeft = NULL;
             del->m_pRight =NULL;
@@ -341,10 +350,83 @@ EmployeeRecord * EmployeeDatabase::removeEmployee(int key) {
             delete temp;
             return del;
 			*/
+
+			
+//we have to replace the node that is deleted
+
+//with smallest element in the right sub tree..
+
+//means left most element in in-order traverse...
+
+//so first we need to find left most element in rigth subtree
+
+  
+
+			EmployeeRecord *left = NULL, *right = NULL, *temp1 = NULL, *back2 = NULL;
+
+
+
+// Copy the replacement values into the node to be deleted
+
+			left = delNode-> m_pLeft;
+
+			right= delNode-> m_pRight;
+
+  
+
+//now from right subtree..we are going to find leftmost node..
+
+  
+
+			temp1 = right;
+
+			while(temp1->m_pLeft!=NULL)
+
+			{
+
+			back = temp1;
+
+			temp1=temp1->m_pLeft;
+
+			}
+
+  
+
+//now removing links...
+
+			if(back!=NULL) {
+				back->m_pLeft=temp1->m_pRight;
+			
+				if(delParent -> m_pLeft == delNode)
+					delParent -> m_pLeft = temp1;
+				else
+					delParent -> m_pRight = temp1;
+					temp1->m_pLeft = left;
+					temp1->m_pRight = right;
+					//delNode -> m_pLeft = NULL;
+					//delNode -> m_pRight = NULL;
+					return delNode;
+			}
+
+			else {
+
+	//means immediate right element is to be replaced
+
+				if(delParent -> m_pLeft == delNode)  
+					delParent -> m_pLeft = right;
+
+				else {
+					delParent -> m_pRight = right;
+					delNode -> m_pLeft = NULL;
+					delNode -> m_pRight = NULL;
+				}
+		return delNode;
            
-        }
-    }
+			}
+			return NULL;
+		}
 	return NULL;
+	}
 }
 
 	
