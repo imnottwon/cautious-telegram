@@ -323,21 +323,13 @@ EmployeeRecord * EmployeeDatabase::removeEmployee(int key) {
 			}
 			temp->setID(replacement->getID());
 
-			/* Two broad cases
-			* i) Replacement is left child of ptr
-			*   (and could be having 0 or 1 children)
-			* ii) Replacement is right (grand)child of ptr->left
-			*/
-
 			if (is_left)
 			{
-				// case i : replacement is left child of ptr.
 				temp->m_pLeft = replacement->m_pLeft;
 				return t;
 			}
 			else
 			{
-				// case ii : replacement is right grand(child of ptr->left
 				parent_replacement->m_pRight = replacement->m_pLeft;
 				return t;
 			}
