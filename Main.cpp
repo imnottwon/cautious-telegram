@@ -54,13 +54,18 @@ int main(int argc, char * argv[])
 		cout << "2. Test for leaf node removal successful" << endl;
 	system ("pause");
 	e = db->removeEmployee(7890);
+	/*
 	if (e->getID() == 7890)
 		cout << "3. Test for non root node with 2 children successful" << endl;
 	system ("pause");
 	db->removeEmployee(4567);
+	/*
 	//e = db->removeEmployee(1234);
 	//if (e->getID() == 1234)
 	//	cout << "4. Test for non root right child successful" << endl;
+
+	db.EmployeeDatabase::~EmployeeDatabase();
+
 	//system ("pause");
 	e = db->removeEmployee(3456);
 	if (e->getID() == 3456)
@@ -89,7 +94,7 @@ int main(int argc, char * argv[])
 	if (e->getID() == 2345)
 		cout << "9. Test for root, leaf, last node in tree successful" << endl;
 	system ("pause");
-
+	*/
 	//Testing the destructor and destroyTree functions
 
 	EmployeeDatabase *db2 = new EmployeeDatabase();

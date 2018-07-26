@@ -42,6 +42,7 @@ EmployeeDatabase::EmployeeDatabase() {
 EmployeeDatabase::~EmployeeDatabase() {
 	DestroyTree(m_pRoot);
     m_pRoot = NULL;
+	cout<<"Tree Destroyed"<<endl;
 }
 
 //DestroyTree Function
@@ -53,6 +54,7 @@ void EmployeeDatabase::DestroyTree(EmployeeRecord *rt) {
 		delete rt;
 		DestroyTree(rt->m_pRight);
 	}
+
 }
 
 
@@ -420,8 +422,7 @@ EmployeeRecord * EmployeeDatabase::removeEmployee(int key) {
 					delNode -> m_pLeft = NULL;
 					delNode -> m_pRight = NULL;
 				}
-		return delNode;
-           
+		return delNode;           
 			}
 			return NULL;
 		}
