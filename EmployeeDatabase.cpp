@@ -237,7 +237,7 @@ EmployeeRecord * EmployeeDatabase::removeEmployee(int key) {
 	EmployeeRecord * back;
 	EmployeeRecord * temp;
 	EmployeeRecord * delParent;
-	EmployeeRecord * delNode;
+	EmployeeRecord * delNode, *parent_replacement, *replacement;
 
 	temp = m_pRoot;
 	back = NULL;
@@ -297,31 +297,50 @@ EmployeeRecord * EmployeeDatabase::removeEmployee(int key) {
 		}
 		else // DELETING NODE WITH 2 CHILDREN
 		{
-			EmployeeRecord *left = NULL, *right = NULL;
+			char fName[32];
+			char lName[32];
+			temp->getName(fName, lName);
+			EmployeeRecord * t = new EmployeeRecord(temp->getID(), fName, lName,temp->getDept(), temp->getSalary());
+			parent_replacement = temp;
+			replacement = temp->m_pLeft;
+			int is_left = 1; /* Replacement is left child of parent */
 
-			left = delNode->m_pLeft;
-			right = delNode->m_pRight;
-			if (back == NULL) {
-
-				EmployeeRecord * newRec = new EmployeeRecord();
-				back = delNode->m_pLeft;
-				newRec->m_pLeft = back->m_pLeft;
-				newRec->m_pRight = back->m_pRight;
+			while (replacement->m_pRight != NULL)
+			{
+				parent_replacement = replacement;
+				replacement = replacement->m_pRight;
+				is_left = 0; // Replacement is right child of parent
+			}
 
 
-				back->m_pRight = delNode->m_pRight;
-				back->m_pLeft = newRec;
-				if (delNode == m_pRoot) {
-					m_pRoot = back;
-				}
+			/* Copy data */
+			if (temp->getID() == m_pRoot->getID()) {
+				replacement->m_pRight = temp->m_pRight;
 			}
 			else {
-
-				back->m_pLeft = left;
-				back->m_pRight = right;
+				temp->m_pLeft = replacement->m_pLeft;
+				temp->m_pRight = replacement->m_pRight;
 			}
-			return delNode;
+			temp->setID(replacement->getID());
 
+			/* Two broad cases
+			* i) Replacement is left child of ptr
+			*   (and could be having 0 or 1 children)
+			* ii) Replacement is right (grand)child of ptr->left
+			*/
+
+			if (is_left)
+			{
+				// case i : replacement is left child of ptr.
+				temp->m_pLeft = replacement->m_pLeft;
+				return t;
+			}
+			else
+			{
+				// case ii : replacement is right grand(child of ptr->left
+				parent_replacement->m_pRight = replacement->m_pLeft;
+				return t;
+			}
 		}
 		return NULL;
 	}
