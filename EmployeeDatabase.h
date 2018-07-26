@@ -33,6 +33,8 @@ public:
 	void printEmployeeRecords();
 	bool buildDatabase(char *dataFile);  //included from instructor
 	bool getNextLine(char *line, int LineLen); //included from instructor
+	void postorder(EmployeeRecord * p, int ident);
+	void printTree();
 //	void printEmployeeRecords(EmployeeRecord *rt);
 };
 
