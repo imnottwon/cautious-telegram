@@ -12,7 +12,7 @@
 
 2. Copy all data from the node to be deleted into this new EmployeeRecord. This will also copy the pointer to the CustomerList object. Just briefly you will have two instances of EmployeeRecord both with pointers to the same instance of CustomerList.
 
-3. Search the left sub-tree of the node to be "removed" to find the node with the largest key. This one will be used to overwrite the node to be "removed." 
+3. Search the left sub-tree of the node to be "removed" to find the node with the largest key. This one will be used to overwrite the node to be "removed."
 
 4. Copy all data from the node in the left sub-tree with the largest key into the node to be "removed". This will also copy the pointer to its' CustomerList leaving both nodes with a pointer to the same CustomerList object.
 
@@ -20,7 +20,7 @@
 
 6. Remove from the tree the node you just copied FROM and delete it. Since it's pointer to CustomerList is now NULL it will not try to delete its' CustomerList.
 
-7. Return the new EmployeeRecord that is now a duplicate of the one "removed" from the tree. 
+7. Return the new EmployeeRecord that is now a duplicate of the one "removed" from the tree.
 *******************************************************************/
 
 
@@ -31,6 +31,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <iomanip>
 
 using namespace std;
 
@@ -41,13 +42,17 @@ EmployeeDatabase::EmployeeDatabase() {
 //default destructor
 EmployeeDatabase::~EmployeeDatabase() {
 	DestroyTree(m_pRoot);
+<<<<<<< HEAD
     m_pRoot = NULL;
 	cout<<"Tree Destroyed"<<endl;
+=======
+	m_pRoot = NULL;
+>>>>>>> 6de1094a2923ab250f140f3cc94b9c54bad206e1
 }
 
 //DestroyTree Function
 void EmployeeDatabase::DestroyTree(EmployeeRecord *rt) {
-	
+
 	if (rt != NULL)
 	{
 		DestroyTree(rt->m_pLeft);
@@ -74,23 +79,23 @@ bool EmployeeDatabase::buildDatabase(char *dataFile)
 	char sSt[32];
 	char sCity[32];
 	char sZip[12];
-	
 
-	inFile.open(dataFile, ifstream::in); 
-    if(!inFile.is_open())
-    {
-        // inFile.is_open() returns false if the file could not be found or
-        //    if for some other reason the open failed.
-        cout << "Unable to open file" << dataFile << "\nProgram terminating...\n";
+
+	inFile.open(dataFile, ifstream::in);
+	if (!inFile.is_open())
+	{
+		// inFile.is_open() returns false if the file could not be found or
+		//    if for some other reason the open failed.
+		cout << "Unable to open file" << dataFile << "\nProgram terminating...\n";
 		cout << "Press Enter to continue...";
 		getc(stdin);
-        return false;
-    }
+		return false;
+	}
 
 	// Get number of employees
 	getNextLine(inStr, 128);
 	numEmp = atoi(inStr);
-	for(int i=0; i<numEmp; i++)
+	for (int i = 0; i < numEmp; i++)
 	{
 		// Instantiate an EmployeeRecord
 		empRec = new EmployeeRecord();
@@ -115,7 +120,7 @@ bool EmployeeDatabase::buildDatabase(char *dataFile)
 		// Get the number of stores
 		getNextLine(inStr, 127);
 		numStores = atoi(inStr);
-		for(int j=0; j<numStores; j++)
+		for (int j = 0; j < numStores; j++)
 		{
 			// Read the store ID
 			getNextLine(inStr, 127);
@@ -143,33 +148,33 @@ bool EmployeeDatabase::buildDatabase(char *dataFile)
 
 bool EmployeeDatabase::getNextLine(char *line, int lineLen)
 {
-    int    done = false;
-    while(!done)
-    {
-        inFile.getline(line, 128);
-        
-        if(inFile.good())    // If a line was successfully read
-        {
-            if(strlen(line) == 0)  // Skip any blank lines
-                continue;
-            else if(line[0] == '#')  // Skip any comment lines
-                continue;
-            else return true;    // Got a valid data line so return with this line
-        }
-        else
-        {
-            strcpy(line, "");
-            return false;
-        }
-    } // end while
-    return false;
+	int    done = false;
+	while (!done)
+	{
+		inFile.getline(line, 128);
+
+		if (inFile.good())    // If a line was successfully read
+		{
+			if (strlen(line) == 0)  // Skip any blank lines
+				continue;
+			else if (line[0] == '#')  // Skip any comment lines
+				continue;
+			else return true;    // Got a valid data line so return with this line
+		}
+		else
+		{
+			strcpy(line, "");
+			return false;
+		}
+	} // end while
+	return false;
 }
 
 bool EmployeeDatabase::addEmployee(EmployeeRecord *e) {
 	EmployeeRecord *temp;
 	EmployeeRecord *back;
-	
-    temp = m_pRoot;  //fix
+
+	temp = m_pRoot;  //fix
 	back = NULL;
 
 	if (m_pRoot == NULL) {
@@ -187,10 +192,11 @@ bool EmployeeDatabase::addEmployee(EmployeeRecord *e) {
 	if (back == NULL) {
 		m_pRoot = e;
 	}
-    else {
+	else {
 		if (e->getID() < back->getID()) {
 			back->m_pLeft = e;
-		} else {
+		}
+		else {
 			back->m_pRight = e;
 		}
 	}
@@ -206,7 +212,8 @@ EmployeeRecord * EmployeeDatabase::getEmployee(int id) {
 	while ((temp != NULL) && (temp->getID() != key)) {
 		if (key < temp->getID()) {
 			temp = temp->m_pLeft;
-		} else {
+		}
+		else {
 			temp = temp->m_pRight;
 		}
 	}
@@ -219,13 +226,13 @@ EmployeeRecord * EmployeeDatabase::getEmployee(int id) {
 	}
 }
 
-void EmployeeDatabase::printEmployeeRecords(){
-	printEmployeeRecords (m_pRoot);
+void EmployeeDatabase::printEmployeeRecords() {
+	printEmployeeRecords(m_pRoot);
 }
 
-void EmployeeDatabase::printEmployeeRecords(EmployeeRecord *rt){
+void EmployeeDatabase::printEmployeeRecords(EmployeeRecord *rt) {
 
-	if(rt != NULL) {
+	if (rt != NULL) {
 		printEmployeeRecords(rt->m_pLeft);
 		rt->printRecord();
 		printEmployeeRecords(rt->m_pRight);
@@ -240,7 +247,7 @@ EmployeeRecord * EmployeeDatabase::removeEmployee(int key) {
 
 	temp = m_pRoot;
 	back = NULL;
-    cout<<"Remove Employee Function Reached"<<endl;
+	cout << "Remove Employee Function Reached" << endl;
 	while ((temp != NULL) && (temp->getID() != key)) {
 		back = temp;
 		if (key < temp->getID()) {
@@ -295,123 +302,28 @@ EmployeeRecord * EmployeeDatabase::removeEmployee(int key) {
 			}
 		}
 		else // DELETING NODE WITH 2 CHILDREN
-        {
-            /*
-			EmployeeRecord *del = new EmployeeRecord();
-//          
-			del = delNode;
-//			del -> destroyCustomerList();
-//          EmployeeRecord *back = NULL;
-//          EmployeeRecord *m_pLeft = NULL;
-//          EmployeeRecord *m_pRight = NULL;
-//          EmployeeRecord *temp = NULL;
-           
-			cout<<"Remove Employee Function for 2 children reached\n";
-            
-			// Copy the replacement values into the node to be deleted
-			temp->m_pRight = delNode->m_pRight;
-			if (delParent == NULL) {
-				m_pRoot = temp;
-            	back = temp;
-				temp = m_pRoot;
-            }
-			else{
-				if (delParent->m_pLeft == delNode)
-					delParent->m_pLeft = temp;
-				else
-					delParent->m_pRight = temp;
+		{
+			EmployeeRecord *left = NULL, *right = NULL;
+
+			left = delNode->m_pLeft;
+			right = delNode->m_pRight;
+			if (back == NULL) {
+
+				EmployeeRecord * newRec = new EmployeeRecord();
+				back = delNode->m_pLeft;
+				newRec->m_pLeft = back->m_pLeft;
+				newRec->m_pRight = back->m_pRight;
+
+
+				back->m_pRight = delNode->m_pRight;
+				back->m_pLeft = newRec;
+				if (delNode == m_pRoot) {
+					m_pRoot = back;
+				}
 			}
-			if (back != delNode) {
-				back->m_pRight = temp->m_pLeft;
-				temp->m_pLeft = delNode->m_pLeft;
-			}
-			
-			del->removeCustomerList();
-			delNode->m_pLeft = NULL;
-			delete delNode;
-
-			return temp;
-			/*
-			//m_pLeft = delNode-> m_pLeft;
-            //m_pRight= delNode-> m_pRight;
-            //delNode = *temp;
-			del->removeCustomerList;
-			del->m_pLeft = NULL;
-            del->m_pRight =NULL;
-            temp = delNode->m_pLeft;
-            back = delNode;
-            while(temp->m_pRight != NULL)
-            {
-                back = temp;
-                temp = temp->m_pRight;
-            }
-            *delNode = *temp;
-            delNode -> m_pLeft = temp->m_pLeft;
-            delNode -> m_pRight = temp->m_pRight;
-           
-            delete temp;
-            return del;
-			*/
-
-			
-//we have to replace the node that is deleted
-
-//with smallest element in the right sub tree..
-
-//means left most element in in-order traverse...
-
-//so first we need to find left most element in rigth subtree
-
-  
-
-			EmployeeRecord *left = NULL, *right = NULL, *temp1 = NULL, *back2 = NULL;
-
-
-
-// Copy the replacement values into the node to be deleted
-
-			left = delNode-> m_pLeft;
-
-			right= delNode-> m_pRight;
-
-  
-
-//now from right subtree..we are going to find leftmost node..
-
-  
-
-			temp1 = right;
-
-			while(temp1->m_pLeft!=NULL)
-
-			{
-
-			back = temp1;
-
-			temp1=temp1->m_pLeft;
-
-			}
-
-  
-
-//now removing links...
-
-			if(back!=NULL) {
-				back->m_pLeft=temp1->m_pRight;
-			
-				if(delParent -> m_pLeft == delNode)
-					delParent -> m_pLeft = temp1;
-				else
-					delParent -> m_pRight = temp1;
-					temp1->m_pLeft = left;
-					temp1->m_pRight = right;
-					//delNode -> m_pLeft = NULL;
-					//delNode -> m_pRight = NULL;
-					return delNode;
-			}
-
 			else {
 
+<<<<<<< HEAD
 	//means immediate right element is to be replaced
 
 				if(delParent -> m_pLeft == delNode)  
@@ -423,11 +335,38 @@ EmployeeRecord * EmployeeDatabase::removeEmployee(int key) {
 					delNode -> m_pRight = NULL;
 				}
 		return delNode;           
+=======
+				back->m_pLeft = left;
+				back->m_pRight = right;
+>>>>>>> 6de1094a2923ab250f140f3cc94b9c54bad206e1
 			}
-			return NULL;
+			return delNode;
+
 		}
+		return NULL;
+	}
 	return NULL;
+}
+
+void EmployeeDatabase::postorder(EmployeeRecord * p, int indent) {
+	if (p != NULL) {
+		if (p->m_pRight) {
+			postorder(p->m_pRight, indent + 4);
+		}
+		if (indent) {
+			std::cout << std::setw(indent) << ' ';
+		}
+		if (p->m_pRight) std::cout << " /\n" << std::setw(indent) << ' ';
+		std::cout << p->getID() << "\n ";
+		if (p->m_pLeft) {
+			std::cout << std::setw(indent) << ' ' << " \\\n";
+			postorder(p->m_pLeft, indent + 4);
+		}
 	}
 }
 
-	
+void EmployeeDatabase::printTree() {
+	postorder(m_pRoot, 10);
+}
+
+
